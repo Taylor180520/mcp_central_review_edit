@@ -652,6 +652,26 @@ export const MCPServerMarketplaceDashboard: React.FC = () => {
         )}
       </div>
 
+
+      {/* Overlay to close modals */}
+      {(showMCPServerIdFilter || showDeveloperFilter || showProviderFilter || showDateRange || showItemsPerPageDropdown) && (
+        <div 
+          className="fixed inset-0 z-40 bg-black/20"
+          onClick={closeAllModals}
+        />
+      )}
+      
+      <div className="bg-gray-800/50 rounded-lg shadow border border-gray-700">
+        <MCPServerSubmissionsTable 
+          mcpServers={filteredMCPServers}
+          selectedMCPServers={selectedMCPServers}
+          onSelectMCPServer={handleSelectMCPServer}
+          onSelectAll={handleSelectAll}
+          onDelist={(mcpServerId) => handleDelist(mcpServerId, '')}
+          isReviewedTab={activeTab === 'reviewed'}
+        />
+      </div>
+      
       {/* Batch Actions Section */}
       {activeTab === 'pending' && (
         <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700">
@@ -679,25 +699,6 @@ export const MCPServerMarketplaceDashboard: React.FC = () => {
         </div>
       )}
 
-      {/* Overlay to close modals */}
-      {(showMCPServerIdFilter || showDeveloperFilter || showProviderFilter || showDateRange || showItemsPerPageDropdown) && (
-        <div 
-          className="fixed inset-0 z-40 bg-black/20"
-          onClick={closeAllModals}
-        />
-      )}
-      
-      <div className="bg-gray-800/50 rounded-lg shadow border border-gray-700">
-        <MCPServerSubmissionsTable 
-          mcpServers={filteredMCPServers}
-          selectedMCPServers={selectedMCPServers}
-          onSelectMCPServer={handleSelectMCPServer}
-          onSelectAll={handleSelectAll}
-          onDelist={(mcpServerId) => handleDelist(mcpServerId, '')}
-          isReviewedTab={activeTab === 'reviewed'}
-        />
-      </div>
-      
       {/* Enhanced Pagination Section */}
       <div className="flex justify-end items-center text-sm text-gray-400 bg-gray-800/50 rounded-lg p-4 border border-gray-700">
         <div className="flex items-center gap-4">
