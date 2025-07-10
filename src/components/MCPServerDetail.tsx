@@ -524,22 +524,24 @@ export const MCPServerDetail: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex gap-2">
-          <button 
-            onClick={() => setShowApproveModal(true)}
-            className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 flex items-center gap-2"
-          >
-            <Check size={18} />
-            Approve
-          </button>
-          <button 
-            onClick={() => setShowRejectModal(true)}
-            className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center gap-2"
-          >
-            <X size={18} />
-            Reject
-          </button>
-        </div>
+        {!mcpServer.isReviewed && (
+          <div className="flex gap-2">
+            <button 
+              onClick={() => setShowApproveModal(true)}
+              className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 flex items-center gap-2"
+            >
+              <Check size={18} />
+              Approve
+            </button>
+            <button 
+              onClick={() => setShowRejectModal(true)}
+              className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center gap-2"
+            >
+              <X size={18} />
+              Reject
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="bg-gray-800/50 rounded-lg border border-gray-700">
@@ -1094,4 +1096,4 @@ export const MCPServerDetail: React.FC = () => {
       />
     </div>
   );
-}; 
+};
