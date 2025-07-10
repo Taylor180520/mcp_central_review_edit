@@ -548,12 +548,14 @@ export const MCPServerDetail: React.FC = () => {
         {activeTab === 'basic' ? (
           <div className="p-8">
             <div className="flex justify-between items-center mb-6">
-              {isEditMode && (
-                <span className="px-2 py-1 bg-blue-600/20 text-blue-300 text-xs rounded-md">
-                  Edit Mode
-                </span>
-              )}
-              <div className="flex gap-2">
+              <div>
+                {isEditMode && (
+                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 text-xs rounded-md">
+                    Edit Mode
+                  </span>
+                )}
+              </div>
+              <div className="flex gap-2 ml-auto">
                 {isEditMode ? (
                   <>
                     <button
