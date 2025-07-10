@@ -652,10 +652,32 @@ export const MCPServerMarketplaceDashboard: React.FC = () => {
         )}
       </div>
 
-
-
-
-
+      {/* Batch Actions Section */}
+      {activeTab === 'pending' && (
+        <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700">
+          <div className="flex justify-between items-center">
+            <div className="text-sm text-gray-400">
+              {selectedMCPServers.length} items selected
+            </div>
+            <div className="flex gap-3">
+              <button
+                onClick={() => handleBatchAction('approve')}
+                disabled={selectedMCPServers.length === 0}
+                className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-600"
+              >
+                Batch Approve
+              </button>
+              <button
+                onClick={() => handleBatchAction('reject')}
+                disabled={selectedMCPServers.length === 0}
+                className="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-red-600"
+              >
+                Batch Reject
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Overlay to close modals */}
       {(showMCPServerIdFilter || showDeveloperFilter || showProviderFilter || showDateRange || showItemsPerPageDropdown) && (
@@ -675,23 +697,6 @@ export const MCPServerMarketplaceDashboard: React.FC = () => {
           isReviewedTab={activeTab === 'reviewed'}
         />
       </div>
-
-      {selectedMCPServers.length > 0 && activeTab === 'pending' && (
-        <div className="flex justify-end gap-2 mt-4">
-          <button
-            onClick={() => handleBatchAction('approve')}
-            className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
-          >
-            Approve ({selectedMCPServers.length})
-          </button>
-          <button
-            onClick={() => handleBatchAction('reject')}
-            className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
-          >
-            Reject ({selectedMCPServers.length})
-          </button>
-        </div>
-      )}
       
       {/* Enhanced Pagination Section */}
       <div className="flex justify-end items-center text-sm text-gray-400 bg-gray-800/50 rounded-lg p-4 border border-gray-700">
@@ -783,4 +788,4 @@ export const MCPServerMarketplaceDashboard: React.FC = () => {
       />
     </div>
   );
-}; 
+};
