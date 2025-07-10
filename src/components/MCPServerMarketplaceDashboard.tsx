@@ -326,62 +326,323 @@ export const MCPServerMarketplaceDashboard: React.FC = () => {
       </div>
       
       {/* Individual Filter Buttons */}
-      <div className="flex flex-wrap gap-4 items-center">
+      <div className="flex flex-wrap gap-4 items-center relative">
         <button
+          className="relative"
           onClick={() => {
             closeAllModals();
             setShowMCPServerIdFilter(!showMCPServerIdFilter);
           }}
-          className="flex items-center gap-2 px-4 py-2 bg-gray-800/50 text-white border border-gray-700 rounded-md hover:bg-gray-700/50 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-gray-800/50 text-white border border-gray-700 rounded-md hover:bg-gray-700/50 transition-colors relative"
         >
           <Server size={16} />
           MCP Server ID
+          {/* MCP Server ID Filter Modal */}
+          {showMCPServerIdFilter && (
+            <div className="absolute top-full mt-2 left-0 z-50 bg-gray-800/95 backdrop-blur-sm border border-gray-700 rounded-lg p-6 w-80 shadow-xl">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-white">FILTER OPTIONS</h3>
+                <button
+                  onClick={() => setShowMCPServerIdFilter(false)}
+                  className="text-gray-400 hover:text-white"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search options..."
+                    className="w-full px-4 py-2 bg-gray-700/50 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent placeholder-gray-400"
+                  />
+                </div>
+                
+                <div className="space-y-3 max-h-64 overflow-y-auto">
+                  {mcpServerIdOptions.map(mcpServerId => (
+                    <label key={mcpServerId} className="flex items-center text-white cursor-pointer hover:bg-gray-700/30 p-2 rounded">
+                      <input
+                        type="checkbox"
+                        checked={filters.mcpServerId.includes(mcpServerId)}
+                        onChange={() => handleMCPServerIdChange(mcpServerId)}
+                        className="mr-3 w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-600 focus:ring-2"
+                      />
+                      <span className="text-sm">{mcpServerId}</span>
+                    </label>
+                  ))}
+                </div>
+                
+                <button
+                  onClick={() => setShowMCPServerIdFilter(false)}
+                  className="w-full py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
+                >
+                  Apply Filters
+                </button>
+                
+                <p className="text-xs text-gray-400 text-center">Click outside to close</p>
+              </div>
+            </div>
+          )}
         </button>
         
         <button
+          className="relative"
           onClick={() => {
             closeAllModals();
             setShowDeveloperFilter(!showDeveloperFilter);
           }}
-          className="flex items-center gap-2 px-4 py-2 bg-gray-800/50 text-white border border-gray-700 rounded-md hover:bg-gray-700/50 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-gray-800/50 text-white border border-gray-700 rounded-md hover:bg-gray-700/50 transition-colors relative"
         >
           <User size={16} />
           Developer
+          {/* Developer Filter Modal */}
+          {showDeveloperFilter && (
+            <div className="absolute top-full mt-2 left-0 z-50 bg-gray-800/95 backdrop-blur-sm border border-gray-700 rounded-lg p-6 w-80 shadow-xl">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-white">FILTER OPTIONS</h3>
+                <button
+                  onClick={() => setShowDeveloperFilter(false)}
+                  className="text-gray-400 hover:text-white"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search options..."
+                    className="w-full px-4 py-2 bg-gray-700/50 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent placeholder-gray-400"
+                  />
+                </div>
+                
+                <div className="space-y-3 max-h-64 overflow-y-auto">
+                  {developerOptions.map(developer => (
+                    <label key={developer} className="flex items-center text-white cursor-pointer hover:bg-gray-700/30 p-2 rounded">
+                      <input
+                        type="checkbox"
+                        checked={filters.developer.includes(developer)}
+                        onChange={() => handleDeveloperChange(developer)}
+                        className="mr-3 w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-600 focus:ring-2"
+                      />
+                      <span className="text-sm">{developer}</span>
+                    </label>
+                  ))}
+                </div>
+                
+                <button
+                  onClick={() => setShowDeveloperFilter(false)}
+                  className="w-full py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
+                >
+                  Apply Filters
+                </button>
+                
+                <p className="text-xs text-gray-400 text-center">Click outside to close</p>
+              </div>
+            </div>
+          )}
         </button>
         
         <button
+          className="relative"
           onClick={() => {
             closeAllModals();
             setShowProviderFilter(!showProviderFilter);
           }}
-          className="flex items-center gap-2 px-4 py-2 bg-gray-800/50 text-white border border-gray-700 rounded-md hover:bg-gray-700/50 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-gray-800/50 text-white border border-gray-700 rounded-md hover:bg-gray-700/50 transition-colors relative"
         >
           <Tag size={16} />
           Provider
+          {/* Provider Filter Modal */}
+          {showProviderFilter && (
+            <div className="absolute top-full mt-2 left-0 z-50 bg-gray-800/95 backdrop-blur-sm border border-gray-700 rounded-lg p-6 w-80 shadow-xl">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-white">FILTER OPTIONS</h3>
+                <button
+                  onClick={() => setShowProviderFilter(false)}
+                  className="text-gray-400 hover:text-white"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search options..."
+                    className="w-full px-4 py-2 bg-gray-700/50 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent placeholder-gray-400"
+                  />
+                </div>
+                
+                <div className="space-y-3 max-h-64 overflow-y-auto">
+                  {providerOptions.map(provider => (
+                    <label key={provider} className="flex items-center text-white cursor-pointer hover:bg-gray-700/30 p-2 rounded">
+                      <input
+                        type="checkbox"
+                        checked={filters.provider.includes(provider)}
+                        onChange={() => handleProviderChange(provider)}
+                        className="mr-3 w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-600 focus:ring-2"
+                      />
+                      <span className="text-sm">{provider}</span>
+                    </label>
+                  ))}
+                </div>
+                
+                <button
+                  onClick={() => setShowProviderFilter(false)}
+                  className="w-full py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
+                >
+                  Apply Filters
+                </button>
+                
+                <p className="text-xs text-gray-400 text-center">Click outside to close</p>
+              </div>
+            </div>
+          )}
         </button>
         
         {activeTab === 'reviewed' && (
           <button
+            className="relative"
             onClick={() => {
               closeAllModals();
               setShowStatusFilter(!showStatusFilter);
             }}
-            className="flex items-center gap-2 px-4 py-2 bg-gray-800/50 text-white border border-gray-700 rounded-md hover:bg-gray-700/50 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-gray-800/50 text-white border border-gray-700 rounded-md hover:bg-gray-700/50 transition-colors relative"
           >
             <CheckCircle size={16} />
             Status
+            {/* Status Filter Modal */}
+            {showStatusFilter && (
+              <div className="absolute top-full mt-2 left-0 z-50 bg-gray-800/95 backdrop-blur-sm border border-gray-700 rounded-lg p-6 w-80 shadow-xl">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-white">FILTER OPTIONS</h3>
+                  <button
+                    onClick={() => setShowStatusFilter(false)}
+                    className="text-gray-400 hover:text-white"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Search options..."
+                      className="w-full px-4 py-2 bg-gray-700/50 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent placeholder-gray-400"
+                    />
+                  </div>
+                  
+                  <div className="space-y-3 max-h-64 overflow-y-auto">
+                    {statusOptions.map(status => (
+                      <label key={status} className="flex items-center text-white cursor-pointer hover:bg-gray-700/30 p-2 rounded">
+                        <input
+                          type="checkbox"
+                          checked={filters.status.includes(status)}
+                          onChange={() => handleStatusChange(status)}
+                          className="mr-3 w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-600 focus:ring-2"
+                        />
+                        <span className="text-sm">{status}</span>
+                      </label>
+                    ))}
+                  </div>
+                  
+                  <button
+                    onClick={() => setShowStatusFilter(false)}
+                    className="w-full py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
+                  >
+                    Apply Filters
+                  </button>
+                  
+                  <p className="text-xs text-gray-400 text-center">Click outside to close</p>
+                </div>
+              </div>
+            )}
           </button>
         )}
         
         <button
+          className="relative"
           onClick={() => {
             closeAllModals();
             setShowDateRange(!showDateRange);
           }}
-          className="flex items-center gap-2 px-4 py-2 bg-gray-800/50 text-white border border-gray-700 rounded-md hover:bg-gray-700/50 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-gray-800/50 text-white border border-gray-700 rounded-md hover:bg-gray-700/50 transition-colors relative"
         >
           <Calendar size={16} />
           Date Range
+          {/* Date Range Modal */}
+          {showDateRange && (
+            <div className="absolute top-full mt-2 right-0 z-50 bg-gray-800/95 backdrop-blur-sm border border-gray-700 rounded-lg p-6 w-80 shadow-xl">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <Calendar size={18} className="text-white" />
+                  <h3 className="text-lg font-semibold text-white">Select Date Range</h3>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleDateRangeReset}
+                    className="px-3 py-1 bg-gray-700/50 text-gray-300 rounded text-sm hover:bg-gray-600/50 transition-colors"
+                  >
+                    Reset
+                  </button>
+                  <button
+                    onClick={() => setShowDateRange(false)}
+                    className="text-gray-400 hover:text-white"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Start Date</label>
+                  <input
+                    type="date"
+                    value={filters.dateRange.start ? filters.dateRange.start.toISOString().split('T')[0] : ''}
+                    onChange={(e) => handleFilterChange({
+                      ...filters,
+                      dateRange: {
+                        ...filters.dateRange,
+                        start: e.target.value ? new Date(e.target.value) : null
+                      }
+                    })}
+                    className="w-full px-3 py-2 bg-gray-700/50 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">End Date</label>
+                  <input
+                    type="date"
+                    value={filters.dateRange.end ? filters.dateRange.end.toISOString().split('T')[0] : ''}
+                    onChange={(e) => handleFilterChange({
+                      ...filters,
+                      dateRange: {
+                        ...filters.dateRange,
+                        end: e.target.value ? new Date(e.target.value) : null
+                      }
+                    })}
+                    className="w-full px-3 py-2 bg-gray-700/50 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                  />
+                </div>
+                
+                <button
+                  onClick={handleDateRangeApply}
+                  className="w-full py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
+                >
+                  Apply Filters
+                </button>
+                
+                <p className="text-xs text-gray-400 text-center">Click outside to apply filters</p>
+              </div>
+            </div>
+          )}
         </button>
 
         {/* Active Filter Tags */}
@@ -458,266 +719,10 @@ export const MCPServerMarketplaceDashboard: React.FC = () => {
         )}
       </div>
 
-      {/* MCP Server ID Filter Modal */}
-      {showMCPServerIdFilter && (
-        <div className="absolute top-32 left-6 z-50 bg-gray-800/95 backdrop-blur-sm border border-gray-700 rounded-lg p-6 w-80 shadow-xl">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-white">FILTER OPTIONS</h3>
-            <button
-              onClick={() => setShowMCPServerIdFilter(false)}
-              className="text-gray-400 hover:text-white"
-            >
-              <X size={20} />
-            </button>
-          </div>
-          
-          <div className="space-y-4">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search options..."
-                className="w-full px-4 py-2 bg-gray-700/50 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent placeholder-gray-400"
-              />
-            </div>
-            
-            <div className="space-y-3 max-h-64 overflow-y-auto">
-              {mcpServerIdOptions.map(mcpServerId => (
-                <label key={mcpServerId} className="flex items-center text-white cursor-pointer hover:bg-gray-700/30 p-2 rounded">
-                  <input
-                    type="checkbox"
-                    checked={filters.mcpServerId.includes(mcpServerId)}
-                    onChange={() => handleMCPServerIdChange(mcpServerId)}
-                    className="mr-3 w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-600 focus:ring-2"
-                  />
-                  <span className="text-sm">{mcpServerId}</span>
-                </label>
-              ))}
-            </div>
-            
-            <button
-              onClick={() => setShowMCPServerIdFilter(false)}
-              className="w-full py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
-            >
-              Apply Filters
-            </button>
-            
-            <p className="text-xs text-gray-400 text-center">Click outside to close</p>
-          </div>
-        </div>
-      )}
 
-      {/* Developer Filter Modal */}
-      {showDeveloperFilter && (
-        <div className="absolute top-32 left-32 z-50 bg-gray-800/95 backdrop-blur-sm border border-gray-700 rounded-lg p-6 w-80 shadow-xl">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-white">FILTER OPTIONS</h3>
-            <button
-              onClick={() => setShowDeveloperFilter(false)}
-              className="text-gray-400 hover:text-white"
-            >
-              <X size={20} />
-            </button>
-          </div>
-          
-          <div className="space-y-4">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search options..."
-                className="w-full px-4 py-2 bg-gray-700/50 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent placeholder-gray-400"
-              />
-            </div>
-            
-            <div className="space-y-3 max-h-64 overflow-y-auto">
-              {developerOptions.map(developer => (
-                <label key={developer} className="flex items-center text-white cursor-pointer hover:bg-gray-700/30 p-2 rounded">
-                  <input
-                    type="checkbox"
-                    checked={filters.developer.includes(developer)}
-                    onChange={() => handleDeveloperChange(developer)}
-                    className="mr-3 w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-600 focus:ring-2"
-                  />
-                  <span className="text-sm">{developer}</span>
-                </label>
-              ))}
-            </div>
-            
-            <button
-              onClick={() => setShowDeveloperFilter(false)}
-              className="w-full py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
-            >
-              Apply Filters
-            </button>
-            
-            <p className="text-xs text-gray-400 text-center">Click outside to close</p>
-          </div>
-        </div>
-      )}
 
-      {/* Provider Filter Modal */}
-      {showProviderFilter && (
-        <div className="absolute top-32 left-56 z-50 bg-gray-800/95 backdrop-blur-sm border border-gray-700 rounded-lg p-6 w-80 shadow-xl">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-white">FILTER OPTIONS</h3>
-            <button
-              onClick={() => setShowProviderFilter(false)}
-              className="text-gray-400 hover:text-white"
-            >
-              <X size={20} />
-            </button>
-          </div>
-          
-          <div className="space-y-4">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search options..."
-                className="w-full px-4 py-2 bg-gray-700/50 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent placeholder-gray-400"
-              />
-            </div>
-            
-            <div className="space-y-3 max-h-64 overflow-y-auto">
-              {providerOptions.map(provider => (
-                <label key={provider} className="flex items-center text-white cursor-pointer hover:bg-gray-700/30 p-2 rounded">
-                  <input
-                    type="checkbox"
-                    checked={filters.provider.includes(provider)}
-                    onChange={() => handleProviderChange(provider)}
-                    className="mr-3 w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-600 focus:ring-2"
-                  />
-                  <span className="text-sm">{provider}</span>
-                </label>
-              ))}
-            </div>
-            
-            <button
-              onClick={() => setShowProviderFilter(false)}
-              className="w-full py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
-            >
-              Apply Filters
-            </button>
-            
-            <p className="text-xs text-gray-400 text-center">Click outside to close</p>
-          </div>
-        </div>
-      )}
 
-      {/* Status Filter Modal */}
-      {showStatusFilter && (
-        <div className="absolute top-32 left-80 z-50 bg-gray-800/95 backdrop-blur-sm border border-gray-700 rounded-lg p-6 w-80 shadow-xl">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-white">FILTER OPTIONS</h3>
-            <button
-              onClick={() => setShowStatusFilter(false)}
-              className="text-gray-400 hover:text-white"
-            >
-              <X size={20} />
-            </button>
-          </div>
-          
-          <div className="space-y-4">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search options..."
-                className="w-full px-4 py-2 bg-gray-700/50 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent placeholder-gray-400"
-              />
-            </div>
-            
-            <div className="space-y-3 max-h-64 overflow-y-auto">
-              {statusOptions.map(status => (
-                <label key={status} className="flex items-center text-white cursor-pointer hover:bg-gray-700/30 p-2 rounded">
-                  <input
-                    type="checkbox"
-                    checked={filters.status.includes(status)}
-                    onChange={() => handleStatusChange(status)}
-                    className="mr-3 w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-600 focus:ring-2"
-                  />
-                  <span className="text-sm">{status}</span>
-                </label>
-              ))}
-            </div>
-            
-            <button
-              onClick={() => setShowStatusFilter(false)}
-              className="w-full py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
-            >
-              Apply Filters
-            </button>
-            
-            <p className="text-xs text-gray-400 text-center">Click outside to close</p>
-          </div>
-        </div>
-      )}
 
-      {/* Date Range Modal */}
-      {showDateRange && (
-        <div className="absolute top-32 right-6 z-50 bg-gray-800/95 backdrop-blur-sm border border-gray-700 rounded-lg p-6 w-80 shadow-xl">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <Calendar size={18} className="text-white" />
-              <h3 className="text-lg font-semibold text-white">Select Date Range</h3>
-            </div>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={handleDateRangeReset}
-                className="px-3 py-1 bg-gray-700/50 text-gray-300 rounded text-sm hover:bg-gray-600/50 transition-colors"
-              >
-                Reset
-              </button>
-              <button
-                onClick={() => setShowDateRange(false)}
-                className="text-gray-400 hover:text-white"
-              >
-                <X size={20} />
-              </button>
-            </div>
-          </div>
-          
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Start Date</label>
-              <input
-                type="date"
-                value={filters.dateRange.start ? filters.dateRange.start.toISOString().split('T')[0] : ''}
-                onChange={(e) => handleFilterChange({
-                  ...filters,
-                  dateRange: {
-                    ...filters.dateRange,
-                    start: e.target.value ? new Date(e.target.value) : null
-                  }
-                })}
-                className="w-full px-3 py-2 bg-gray-700/50 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">End Date</label>
-              <input
-                type="date"
-                value={filters.dateRange.end ? filters.dateRange.end.toISOString().split('T')[0] : ''}
-                onChange={(e) => handleFilterChange({
-                  ...filters,
-                  dateRange: {
-                    ...filters.dateRange,
-                    end: e.target.value ? new Date(e.target.value) : null
-                  }
-                })}
-                className="w-full px-3 py-2 bg-gray-700/50 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-              />
-            </div>
-            
-            <button
-              onClick={handleDateRangeApply}
-              className="w-full py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
-            >
-              Apply Filters
-            </button>
-            
-            <p className="text-xs text-gray-400 text-center">Click outside to apply filters</p>
-          </div>
-        </div>
-      )}
 
       {/* Overlay to close modals */}
       {(showMCPServerIdFilter || showDeveloperFilter || showProviderFilter || showStatusFilter || showDateRange || showItemsPerPageDropdown) && (
