@@ -13,7 +13,6 @@ export const MCPServerMarketplaceDashboard: React.FC = () => {
   const [showMCPServerIdFilter, setShowMCPServerIdFilter] = useState(false);
   const [showDeveloperFilter, setShowDeveloperFilter] = useState(false);
   const [showProviderFilter, setShowProviderFilter] = useState(false);
-  const [showStatusFilter, setShowStatusFilter] = useState(false);
   const [showDateRange, setShowDateRange] = useState(false);
   const [filters, setFilters] = useState<FilterState>({
     status: [],
@@ -240,14 +239,9 @@ export const MCPServerMarketplaceDashboard: React.FC = () => {
     setShowMCPServerIdFilter(false);
     setShowDeveloperFilter(false);
     setShowProviderFilter(false);
-    setShowStatusFilter(false);
     setShowDateRange(false);
     setShowItemsPerPageDropdown(false);
   };
-
-  const statusOptions = activeTab === 'reviewed' 
-    ? ['Published', 'Rejected', 'Delisted']
-    : ['Auto Approved', 'Auto Rejected'];
 
   const providerOptions = ['Individual', 'ITEM'];
 
@@ -504,67 +498,6 @@ export const MCPServerMarketplaceDashboard: React.FC = () => {
           )}
         </button>
         
-        {activeTab === 'reviewed' && (
-          <button
-            className="relative"
-            onClick={() => {
-              closeAllModals();
-              setShowStatusFilter(!showStatusFilter);
-            }}
-            className="flex items-center gap-2 px-4 py-2 bg-gray-800/50 text-white border border-gray-700 rounded-md hover:bg-gray-700/50 transition-colors relative"
-          >
-            <CheckCircle size={16} />
-            Status
-            {/* Status Filter Modal */}
-            {showStatusFilter && (
-              <div className="absolute top-full mt-2 left-0 z-50 bg-gray-800/95 backdrop-blur-sm border border-gray-700 rounded-lg p-6 w-80 shadow-xl">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-white">FILTER OPTIONS</h3>
-                  <button
-                    onClick={() => setShowStatusFilter(false)}
-                    className="text-gray-400 hover:text-white"
-                  >
-                    <X size={20} />
-                  </button>
-                </div>
-                
-                <div className="space-y-4">
-                  <div className="relative">
-                    <input
-                      type="text"
-                      placeholder="Search options..."
-                      className="w-full px-4 py-2 bg-gray-700/50 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent placeholder-gray-400"
-                    />
-                  </div>
-                  
-                  <div className="space-y-3 max-h-64 overflow-y-auto">
-                    {statusOptions.map(status => (
-                      <label key={status} className="flex items-center text-white cursor-pointer hover:bg-gray-700/30 p-2 rounded">
-                        <input
-                          type="checkbox"
-                          checked={filters.status.includes(status)}
-                          onChange={() => handleStatusChange(status)}
-                          className="mr-3 w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-600 focus:ring-2"
-                        />
-                        <span className="text-sm">{status}</span>
-                      </label>
-                    ))}
-                  </div>
-                  
-                  <button
-                    onClick={() => setShowStatusFilter(false)}
-                    className="w-full py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
-                  >
-                    Apply Filters
-                  </button>
-                  
-                  <p className="text-xs text-gray-400 text-center">Click outside to close</p>
-                </div>
-              </div>
-            )}
-          </button>
-        )}
-        
         <button
           className="relative"
           onClick={() => {
@@ -725,7 +658,7 @@ export const MCPServerMarketplaceDashboard: React.FC = () => {
 
 
       {/* Overlay to close modals */}
-      {(showMCPServerIdFilter || showDeveloperFilter || showProviderFilter || showStatusFilter || showDateRange || showItemsPerPageDropdown) && (
+      {(showMCPServerIdFilter || showDeveloperFilter || showProviderFilter || showDateRange || showItemsPerPageDropdown) && (
         <div 
           className="fixed inset-0 z-40 bg-black/20"
           onClick={closeAllModals}
